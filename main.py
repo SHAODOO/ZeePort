@@ -1,4 +1,4 @@
-import socket, sys, threading, time, ctypes
+import socket, sys, threading, time, ctypes, time
 from tkinter import *
 
 # ==== Scan Vars ====
@@ -8,6 +8,26 @@ log = []
 ports = []
 target = 'localhost'
 
+# ==== Open Port Vulnerabilities Suggestion ====
+def vulSuggestion(port):
+    if port == 21:
+        vul = "ftp vul"
+    elif port == 53:
+        vul = 'dns vul'
+    else:
+        vul = "unknown"
+    #continue
+    return vul
+
+def service(port):
+    if port == 21:
+        service = 'ftp'
+    elif port == 53:
+        service = 'dns'
+    else:
+        service = 'unknown'
+    #continue
+    return service
 
 # ==== Scanning Functions ====
 def scanPort(target, port):
@@ -16,10 +36,12 @@ def scanPort(target, port):
         s.settimeout(4)
         c = s.connect_ex((target, port))
         if c == 0:
-            m = ' Port %d \t[open]' % (port,)
+            m = '%d               [open]' % (port,)
             log.append(m)
             ports.append(port)
-            listbox.insert("end", str(m))
+            vul = vulSuggestion(port)
+            ser = service(port)
+            listbox.insert("end", str(m) + '           ' + vul + '          ' + ser)
             updateResult()
         s.close()
     except OSError:
@@ -48,12 +70,14 @@ def startScan():
     log.append('ZeePort')
     log.append('=' * 14 + '\n')
     log.append(' Target:\t\t' + str(target))
-
+    startTime = time.time()
     try:
         target = socket.gethostbyname(str(L22.get()))
         log.append(' IP Address:\t' + str(target))
         log.append(' Ports: \t\t[ ' + str(ip_s) + ' / ' + str(ip_f) + ' ]')
         log.append('\n')
+        #Header in listbox
+        listbox.insert("end", 'PORT           STATE            SERVICE            VULNERABILITY')
         # Lets start scanning ports!
         while ip_s <= ip_f:
             try:
@@ -67,6 +91,9 @@ def startScan():
         m = '> Target ' + str(L22.get()) + ' not found.'
         log.append(m)
         listbox.insert(0, str(m))
+    endTime = time.time() - startTime
+    #display time taken
+    L28.configure(text='ZeePort: done scanned in ' + str(round(endTime, 2)) + ' seconds')
 
 
 def saveScan():
@@ -126,6 +153,9 @@ L26 = Label(gui, text="Results: ")
 L26.place(x=16, y=220)
 L27 = Label(gui, text="[ ... ]")
 L27.place(x=180, y=220)
+
+L28 = Label(gui, text="Time")
+L28.place(x=16, y=250)
 
 # ==== Ports list ====
 frame = Frame(gui)
