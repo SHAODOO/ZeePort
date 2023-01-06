@@ -45,12 +45,12 @@ def scanPort(target, port):
         s.settimeout(4)
         c = s.connect_ex((target, port))
         if c == 0:
-            m = '%d               [open]' % (port,)
-            log.append(m)
             ports.append(port)
             vul = vulSuggestion(port)
             ser = service(port)
-            listbox.insert("end", str(m) + '                ' + ser + '             ' + vul)
+            m = '%d               [open]        %s      %s' % (port, ser, vul)
+            log.append(m)
+            listbox.insert("end", str(m))
             updateResult()
         s.close()
     except OSError:
@@ -86,11 +86,11 @@ def startScan():
     log.append(' Target:\t\t' + str(target))
     startTime = time.time()
     mac = getMacAddress(str(target))
-    mac = getMacAddress(str(target))
     try:
         target = socket.gethostbyname(str(L22.get()))
         log.append(' IP Address:\t' + str(target))
         log.append(' Ports: \t\t[ ' + str(ip_s) + ' / ' + str(ip_f) + ' ]')
+        log.append(' MAC Address:\t' + str(mac))
         log.append('\n')
         #Header in listbox
         listbox.insert("end", 'PORT           STATE         SERVICE         VULNERABILITY')
@@ -119,7 +119,8 @@ def saveScan():
         # Pop out a window to alert user that no result
         ctypes.windll.user32.MessageBoxW(0, "Empty result", "ZeePort", 1)
     else:
-        log[5] = " Result:\t\t[ " + str(len(ports)) + " / " + str(ip_f) + " ]\n"
+        log[6] = " Result:\t\t[ " + str(len(ports)) + " / " + str(ip_f) + " ]\n"
+        log[7] = 'PORT\t\t\t\tSTATUS\t\tSERVICE\t\tVULNERABILITY'
         with open('ZeePort (' + str(target) + ').txt', mode='wt', encoding='utf-8') as myfile:
             myfile.write('\n'.join(log))
         # Pop out a window to alert user that result has been downloaded
