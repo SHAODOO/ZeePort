@@ -1,5 +1,6 @@
-import socket, sys, threading, time, ctypes, time
+import socket, sys, threading, time, ctypes, time, subprocess
 from tkinter import *
+from getmac import get_mac_address
 
 # ==== Scan Vars ====
 ip_s = 1
@@ -8,7 +9,13 @@ log = []
 ports = []
 target = 'localhost'
 
-# ==== Open Port Vulnerabilities Suggestion ====
+def getMacAddress(ip_address):
+    mac_address = get_mac_address(ip=ip_address)
+    if mac_address == None:
+        mac_address = "MAC Address not found"
+    return mac_address
+
+# Open Port Vulnerabilities Suggestion
 def vulSuggestion(port):
     if port == 21:
         vul = "ftp vul"
@@ -22,6 +29,8 @@ def vulSuggestion(port):
 def service(port):
     if port == 21:
         service = 'ftp'
+    elif port == 23:
+        service = 'telnet'
     elif port == 53:
         service = 'dns'
     else:
@@ -41,7 +50,7 @@ def scanPort(target, port):
             ports.append(port)
             vul = vulSuggestion(port)
             ser = service(port)
-            listbox.insert("end", str(m) + '           ' + vul + '          ' + ser)
+            listbox.insert("end", str(m) + '                ' + ser + '             ' + vul)
             updateResult()
         s.close()
     except OSError:
@@ -66,18 +75,25 @@ def startScan():
     # Get ports ranges from GUI
     ip_s = int(L24.get())
     ip_f = int(L25.get())
-    # Start writing the log file
+    # port number validation
+    # while ip_s < 1 or ip_f > 65535:
+        # L24.configure(text="1")
+        # L25.configure(text="1024")
+        # ctypes.windll.user32.MessageBoxW(0, "Please enter a valid port", "ZeePort", 1)
+        # Start writing the log file
     log.append('ZeePort')
     log.append('=' * 14 + '\n')
     log.append(' Target:\t\t' + str(target))
     startTime = time.time()
+    mac = getMacAddress(str(target))
+    mac = getMacAddress(str(target))
     try:
         target = socket.gethostbyname(str(L22.get()))
         log.append(' IP Address:\t' + str(target))
         log.append(' Ports: \t\t[ ' + str(ip_s) + ' / ' + str(ip_f) + ' ]')
         log.append('\n')
         #Header in listbox
-        listbox.insert("end", 'PORT           STATE            SERVICE            VULNERABILITY')
+        listbox.insert("end", 'PORT           STATE         SERVICE         VULNERABILITY')
         # Lets start scanning ports!
         while ip_s <= ip_f:
             try:
@@ -93,7 +109,8 @@ def startScan():
         listbox.insert(0, str(m))
     endTime = time.time() - startTime
     #display time taken
-    L28.configure(text='ZeePort: done scanned in ' + str(round(endTime, 2)) + ' seconds')
+    L28.configure(text='ZeePort: done scanned in ' + str(round(endTime, 2)) + ' seconds ')
+    L29.configure(text='MAC Address: ' + str(mac))
 
 
 def saveScan():
@@ -115,14 +132,16 @@ def clearScan():
 
 # ==== GUI ====
 gui = Tk()
+# set window title
 gui.title('ZeePort')
+# set window icon
+gui.iconbitmap('Logo.ico')
 gui.geometry("400x600+20+20")
 
 # ==== Colors ====
-m1c = '#00ee00'
-bgc = '#222222'
-dbg = '#000000'
-fgc = '#111111'
+m1c = '#F49F1C'         #text
+bgc = '#030E4F'         #background
+fgc = '#F49F1C'         #button clicked
 
 gui.tk_setPalette(background=bgc, foreground=m1c, activeBackground=fgc, activeForeground=bgc, highlightColor=m1c,
                   highlightBackground=m1c)
@@ -154,13 +173,16 @@ L26.place(x=16, y=220)
 L27 = Label(gui, text="[ ... ]")
 L27.place(x=180, y=220)
 
-L28 = Label(gui, text="Time")
-L28.place(x=16, y=250)
+L28 = Label(gui, text="")
+L28.place(x=16, y=465)
+
+L29 =Label(gui, text="")
+L29.place(x=16, y=490)
 
 # ==== Ports list ====
 frame = Frame(gui)
-frame.place(x=16, y=275, width=370, height=215)
-listbox = Listbox(frame, width=59, height=6)
+frame.place(x=16, y=275, width=370, height=180)
+listbox = Listbox(frame, width=59, height=11)
 listbox.place(x=0, y=0)
 listbox.bind('<<ListboxSelect>>')
 scrollbar = Scrollbar(frame)
@@ -170,9 +192,9 @@ scrollbar.config(command=listbox.yview)
 
 # ==== Buttons / Scans ====
 B11 = Button(gui, text="Start Scan", command=startScan)
-B11.place(x=16, y=500, width=170)
+B11.place(x=16, y=540, width=170)
 B21 = Button(gui, text="Save Result", command=saveScan)
-B21.place(x=210, y=500, width=170)
+B21.place(x=210, y=540, width=170)
 
 # ==== Start GUI ====
 gui.mainloop()
