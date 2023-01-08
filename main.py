@@ -51,7 +51,7 @@ def scanPort(target, port):
             m = '%d               [open]        %s      %s' % (port, ser, vul)
             log.append(m)
             listbox.insert("end", str(m))
-            updateResult()
+        updateResult()
         s.close()
     except OSError:
         print('> Too many open sockets. Port ' + str(port))
@@ -83,7 +83,7 @@ def startScan():
         # Start writing the log file
     log.append('ZeePort')
     log.append('=' * 14 + '\n')
-    log.append(' Target:\t\t' + str(target))
+    log.append(' Target:\t\t' + str(L22.get()))
     startTime = time.time()
     mac = getMacAddress(str(target))
     try:
