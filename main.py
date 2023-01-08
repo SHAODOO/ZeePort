@@ -1,6 +1,7 @@
 import socket, sys, threading, time, ctypes, time, subprocess
 from tkinter import *
 from getmac import get_mac_address
+from time import ctime
 
 # ==== Scan Vars ====
 ip_s = 1
@@ -68,7 +69,7 @@ def updateResult():
 
 
 def startScan():
-    global ports, log, target, ip_f
+    global ports, log, target, ip_f, startTime
     clearScan()
     log = []
     ports = []
@@ -122,6 +123,7 @@ def saveScan():
         # log[7] = 'PORT\t\t\t\tSTATUS\t\tSERVICE\t\tVULNERABILITY'
         with open('ZeePort (' + str(target) + ').txt', mode='wt', encoding='utf-8') as myfile:
             myfile.write('\n'.join(log))
+            myfile.write('\n\nScanned at ' + str(ctime(startTime)))
         # Pop out a window to alert user that result has been downloaded
         ctypes.windll.user32.MessageBoxW(0, "Result for " + str(target) + " has been downloaded.", "ZeePort", 1)
 
