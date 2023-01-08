@@ -51,7 +51,7 @@ def scanPort(target, port):
             m = '%d               [open]        %s      %s' % (port, ser, vul)
             log.append(m)
             listbox.insert("end", str(m))
-            updateResult()
+        updateResult()
         s.close()
     except OSError:
         print('> Too many open sockets. Port ' + str(port))
