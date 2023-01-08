@@ -89,7 +89,6 @@ def startScan():
     try:
         target = socket.gethostbyname(str(L22.get()))
         log.append(' IP Address:\t' + str(target))
-        log.append(' Ports: \t\t[ ' + str(ip_s) + ' / ' + str(ip_f) + ' ]')
         log.append(' MAC Address:\t' + str(mac))
         log.append('\n')
         #Header in listbox
@@ -119,8 +118,8 @@ def saveScan():
         # Pop out a window to alert user that no result
         ctypes.windll.user32.MessageBoxW(0, "Empty result", "ZeePort", 1)
     else:
-        log[6] = " Result:\t\t[ " + str(len(ports)) + " / " + str(ip_f) + " ]\n"
-        log[7] = 'PORT\t\t\t\tSTATUS\t\tSERVICE\t\tVULNERABILITY'
+        log[5] = " Result:\t\t[ " + str(len(ports)) + " / " + str(ip_f) + " ]\n\nPORT\t\t\t\tSTATUS\t\tSERVICE\t\tVULNERABILITY"
+        # log[7] = 'PORT\t\t\t\tSTATUS\t\tSERVICE\t\tVULNERABILITY'
         with open('ZeePort (' + str(target) + ').txt', mode='wt', encoding='utf-8') as myfile:
             myfile.write('\n'.join(log))
         # Pop out a window to alert user that result has been downloaded
