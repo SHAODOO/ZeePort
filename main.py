@@ -1,4 +1,4 @@
-import socket, sys, threading, time, ctypes, time, subprocess
+import socket, sys, threading, ctypes, time
 from tkinter import *
 from getmac import get_mac_address
 from time import ctime
@@ -19,25 +19,57 @@ def getMacAddress(ip_address):
 # Open Port Vulnerabilities Suggestion
 def vulSuggestion(port):
     if port == 21:
-        vul = "ftp vul"
+        return 'Dridex'
+    elif port == 22:
+        return 'Brute-force attack'
+    elif port == 23:
+        return 'Sniffing, Spoofing, Brute-force attack'
+    elif port == 25:
+        return 'Mail spamming, Spoofing'
     elif port == 53:
-        vul = 'dns vul'
+        return 'DDoS attack'
+    elif port == 80:
+        return 'SQL injection, Cross-site scripting'
     else:
-        vul = "unknown"
-    #continue
-    return vul
+        return 'Not found'
 
 def service(port):
     if port == 21:
-        service = 'ftp'
+        return  'FTP'
+    elif port == 22:
+        return  'SSH'
     elif port == 23:
-        service = 'telnet'
+        return 'Telnet'
+    elif port == 25:
+        return 'SMTP'
+    elif port == 43:
+        return 'WhoIs'
     elif port == 53:
-        service = 'dns'
+        return 'DNS'
+    elif port == 80:
+        return 'HTTP'
+    elif port == 109:
+        return 'POP2'
+    elif port == 110:
+        return 'POP3'
+    elif port == 135:
+        return 'LOC-SRV'
+    elif port == 139:
+        return 'NetBIOS Datagram Service'
+    elif port == 161:
+        return 'SNMP'
+    elif port == 443:
+        return 'HTTPS'
+    elif port == 445:
+        return 'Microsoft-DS'
+    elif port == 458:
+        return 'Apple QuickTime'
+    elif port == 902:
+        return 'IdeaForm-Chat'
+    elif port == 912:
+        return 'APEX'
     else:
-        service = 'unknown'
-    #continue
-    return service
+        return 'Unknown'
 
 # ==== Scanning Functions ====
 def scanPort(target, port):
@@ -49,7 +81,7 @@ def scanPort(target, port):
             ports.append(port)
             vul = vulSuggestion(port)
             ser = service(port)
-            m = '%d               [open]        %s      %s' % (port, ser, vul)
+            m = '%d               [open]        %s                  %s' % (port, ser, vul)
             log.append(m)
             listbox.insert("end", str(m))
         updateResult()
@@ -93,7 +125,7 @@ def startScan():
         log.append(' MAC Address:\t' + str(mac))
         log.append('\n')
         #Header in listbox
-        listbox.insert("end", 'PORT           STATE         SERVICE         VULNERABILITY')
+        listbox.insert("end", 'PORT           STATE         SERVICE             VULNERABILITY')
         # Lets start scanning ports!
         while ip_s <= ip_f:
             try:
@@ -138,7 +170,7 @@ gui = Tk()
 gui.title('ZeePort')
 # set window icon
 gui.iconbitmap('Logo.ico')
-gui.geometry("400x600+20+20")
+gui.geometry("500x700+20+20")
 
 # ==== Colors ====
 m1c = '#F49F1C'         #text
@@ -183,8 +215,8 @@ L29.place(x=16, y=490)
 
 # ==== Ports list ====
 frame = Frame(gui)
-frame.place(x=16, y=275, width=370, height=180)
-listbox = Listbox(frame, width=59, height=11)
+frame.place(x=16, y=275, width=450, height=180)
+listbox = Listbox(frame, width=450, height=11)
 listbox.place(x=0, y=0)
 listbox.bind('<<ListboxSelect>>')
 scrollbar = Scrollbar(frame)
