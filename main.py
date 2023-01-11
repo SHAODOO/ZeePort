@@ -240,7 +240,14 @@ gui = Tk()
 gui.title('ZeePort')
 # set window icon
 gui.iconbitmap('Logo.ico')
-gui.geometry("500x700+20+20")
+# gui.geometry("500x700+40+40")
+width_of_window = 500
+height_of_window = 700
+screen_width = gui.winfo_screenwidth()
+screen_height = gui.winfo_screenheight()
+x_coordinate = (screen_width/2)-(width_of_window/2)
+y_coordinate = (screen_height/2)-(height_of_window/2)
+gui.geometry("%dx%d+%d+%d" %(width_of_window,height_of_window,x_coordinate,y_coordinate))
 
 # ==== Colors ====
 m1c = '#FFF4EA'         #text
