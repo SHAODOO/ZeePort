@@ -3,6 +3,13 @@ from tkinter import *
 from getmac import get_mac_address
 from time import ctime
 
+#importing library for GUI
+from tkinter import font
+from PIL import ImageTk, Image
+import time
+
+w=Tk()
+
 # ==== Scan Vars ====
 ip_s = 1
 ip_f = 1024
@@ -164,6 +171,69 @@ def clearScan():
     listbox.delete(0, 'end')
 
 
+# ==== GUI Splash Screen ====
+# Using piece of code from old splash screen
+width_of_window = 427
+height_of_window = 250
+screen_width = w.winfo_screenwidth()
+screen_height = w.winfo_screenheight()
+x_coordinate = (screen_width/2)-(width_of_window/2)
+y_coordinate = (screen_height/2)-(height_of_window/2)
+w.geometry("%dx%d+%d+%d" %(width_of_window,height_of_window,x_coordinate,y_coordinate))
+#w.configure(bg='#ED1B76')
+w.overrideredirect(1) #for hiding titlebar
+
+Frame(w, width=427, height=250, bg='#203749').place(x=0,y=0)
+label1=Label(w, text='ZEEPORT', fg='white', bg='#203749') #decorate it
+label1.configure(font=("Algerian", 24, "bold"))   #You need to install this font in your PC or try another one
+label1.place(x=140,y=90)
+
+label2=Label(w, text='Loading...', fg='white', bg='#203749') #decorate it
+label2.configure(font=("Slyfaen", 12))
+label2.place(x=10,y=215)
+
+#making animation
+
+image_a=ImageTk.PhotoImage(Image.open('c2.png'))
+image_b=ImageTk.PhotoImage(Image.open('c1.png'))
+
+
+for i in range(3): #3loops
+    l1=Label(w, image=image_a, border=0, relief=SUNKEN).place(x=180, y=145)
+    l2=Label(w, image=image_b, border=0, relief=SUNKEN).place(x=200, y=145)
+    l3=Label(w, image=image_b, border=0, relief=SUNKEN).place(x=220, y=145)
+    l4=Label(w, image=image_b, border=0, relief=SUNKEN).place(x=240, y=145)
+    w.update_idletasks()
+    time.sleep(0.5)
+
+    l1=Label(w, image=image_b, border=0, relief=SUNKEN).place(x=180, y=145)
+    l2=Label(w, image=image_a, border=0, relief=SUNKEN).place(x=200, y=145)
+    l3=Label(w, image=image_b, border=0, relief=SUNKEN).place(x=220, y=145)
+    l4=Label(w, image=image_b, border=0, relief=SUNKEN).place(x=240, y=145)
+    w.update_idletasks()
+    time.sleep(0.5)
+
+    l1=Label(w, image=image_b, border=0, relief=SUNKEN).place(x=180, y=145)
+    l2=Label(w, image=image_b, border=0, relief=SUNKEN).place(x=200, y=145)
+    l3=Label(w, image=image_a, border=0, relief=SUNKEN).place(x=220, y=145)
+    l4=Label(w, image=image_b, border=0, relief=SUNKEN).place(x=240, y=145)
+    w.update_idletasks()
+    time.sleep(0.5)
+
+    l1=Label(w, image=image_b, border=0, relief=SUNKEN).place(x=180, y=145)
+    l2=Label(w, image=image_b, border=0, relief=SUNKEN).place(x=200, y=145)
+    l3=Label(w, image=image_b, border=0, relief=SUNKEN).place(x=220, y=145)
+    l4=Label(w, image=image_a, border=0, relief=SUNKEN).place(x=240, y=145)
+    w.update_idletasks()
+    time.sleep(0.5)
+
+
+
+w.destroy()
+#new_win()
+w.mainloop()
+
+
 # ==== GUI ====
 gui = Tk()
 # set window title
@@ -173,44 +243,44 @@ gui.iconbitmap('Logo.ico')
 gui.geometry("500x700+20+20")
 
 # ==== Colors ====
-m1c = '#F49F1C'         #text
-bgc = '#030E4F'         #background
-fgc = '#F49F1C'         #button clicked
+m1c = '#FFF4EA'         #text
+bgc = '#607D8B'         #background
+fgc = '#455A64'         #button clicked
 
 gui.tk_setPalette(background=bgc, foreground=m1c, activeBackground=fgc, activeForeground=bgc, highlightColor=m1c,
                   highlightBackground=m1c)
 
 # ==== Labels ====
-L11 = Label(gui, text="ZeePort", font=("Helvetica", 16, 'underline'))
+L11 = Label(gui, text="ZeePort", font=("Algerian", 20)) #'underline'
 L11.place(x=16, y=10)
 
-L21 = Label(gui, text="Target: ")
+L21 = Label(gui, text="Target: ", font=("Cascadia Code", 12))
 L21.place(x=16, y=90)
 
-L22 = Entry(gui, text="localhost")
-L22.place(x=180, y=90)
+L22 = Entry(gui, text="localhost", font=("Times New Roman", 12))
+L22.place(x=180, y=95)
 L22.insert(0, "localhost")
 
-L23 = Label(gui, text="Ports: ")
+L23 = Label(gui, text="Ports: ", font=("Cascadia Code", 12))
 L23.place(x=16, y=158)
 
-L24 = Entry(gui, text="1")
-L24.place(x=180, y=158, width=95)
+L24 = Entry(gui, text="1", font=("Times New Roman", 12))
+L24.place(x=180, y=163, width=95)
 L24.insert(0, "1")
 
-L25 = Entry(gui, text="1024")
-L25.place(x=290, y=158, width=95)
+L25 = Entry(gui, text="1024", font=("Times New Roman", 12))
+L25.place(x=290, y=163, width=95)
 L25.insert(0, "1024")
 
-L26 = Label(gui, text="Results: ")
+L26 = Label(gui, text="Results: ", font=("Cascadia Code", 12))
 L26.place(x=16, y=220)
-L27 = Label(gui, text="[ ... ]")
-L27.place(x=180, y=220)
+L27 = Label(gui, text="[ ... ]", font=("Times New Roman", 12))
+L27.place(x=180, y=222)
 
-L28 = Label(gui, text="")
+L28 = Label(gui, text="", font=("Times New Roman", 12))
 L28.place(x=16, y=465)
 
-L29 =Label(gui, text="")
+L29 =Label(gui, text="", font=("Times New Roman", 12))
 L29.place(x=16, y=490)
 
 # ==== Ports list ====
