@@ -186,10 +186,10 @@ w.overrideredirect(1) #for hiding titlebar
 Frame(w, width=427, height=250, bg='#203749').place(x=0,y=0)
 label1=Label(w, text='ZEEPORT', fg='white', bg='#203749') #decorate it
 label1.configure(font=("Algerian", 24, "bold"))   #You need to install this font in your PC or try another one
-label1.place(x=140,y=90)
+label1.place(x=137,y=100)
 
 label2=Label(w, text='Loading...', fg='white', bg='#203749') #decorate it
-label2.configure(font=("Slyfaen", 12))
+label2.configure(font=("Cascadia Code", 11))
 label2.place(x=10,y=215)
 
 #making animation
@@ -197,33 +197,36 @@ label2.place(x=10,y=215)
 image_a=ImageTk.PhotoImage(Image.open('c2.png'))
 image_b=ImageTk.PhotoImage(Image.open('c1.png'))
 
+image_c=ImageTk.PhotoImage(Image.open('Logo.png'))
+label3=Label(w, image=image_c, border=0, relief=SUNKEN).place(x=182, y=25)
+
 
 for i in range(3): #3loops
-    l1=Label(w, image=image_a, border=0, relief=SUNKEN).place(x=180, y=145)
-    l2=Label(w, image=image_b, border=0, relief=SUNKEN).place(x=200, y=145)
-    l3=Label(w, image=image_b, border=0, relief=SUNKEN).place(x=220, y=145)
-    l4=Label(w, image=image_b, border=0, relief=SUNKEN).place(x=240, y=145)
+    l1=Label(w, image=image_a, border=0, relief=SUNKEN).place(x=177, y=155)
+    l2=Label(w, image=image_b, border=0, relief=SUNKEN).place(x=197, y=155)
+    l3=Label(w, image=image_b, border=0, relief=SUNKEN).place(x=217, y=155)
+    l4=Label(w, image=image_b, border=0, relief=SUNKEN).place(x=237, y=155)
     w.update_idletasks()
     time.sleep(0.5)
 
-    l1=Label(w, image=image_b, border=0, relief=SUNKEN).place(x=180, y=145)
-    l2=Label(w, image=image_a, border=0, relief=SUNKEN).place(x=200, y=145)
-    l3=Label(w, image=image_b, border=0, relief=SUNKEN).place(x=220, y=145)
-    l4=Label(w, image=image_b, border=0, relief=SUNKEN).place(x=240, y=145)
+    l1=Label(w, image=image_b, border=0, relief=SUNKEN).place(x=177, y=155)
+    l2=Label(w, image=image_a, border=0, relief=SUNKEN).place(x=197, y=155)
+    l3=Label(w, image=image_b, border=0, relief=SUNKEN).place(x=217, y=155)
+    l4=Label(w, image=image_b, border=0, relief=SUNKEN).place(x=237, y=155)
     w.update_idletasks()
     time.sleep(0.5)
 
-    l1=Label(w, image=image_b, border=0, relief=SUNKEN).place(x=180, y=145)
-    l2=Label(w, image=image_b, border=0, relief=SUNKEN).place(x=200, y=145)
-    l3=Label(w, image=image_a, border=0, relief=SUNKEN).place(x=220, y=145)
-    l4=Label(w, image=image_b, border=0, relief=SUNKEN).place(x=240, y=145)
+    l1=Label(w, image=image_b, border=0, relief=SUNKEN).place(x=177, y=155)
+    l2=Label(w, image=image_b, border=0, relief=SUNKEN).place(x=197, y=155)
+    l3=Label(w, image=image_a, border=0, relief=SUNKEN).place(x=217, y=155)
+    l4=Label(w, image=image_b, border=0, relief=SUNKEN).place(x=237, y=155)
     w.update_idletasks()
     time.sleep(0.5)
 
-    l1=Label(w, image=image_b, border=0, relief=SUNKEN).place(x=180, y=145)
-    l2=Label(w, image=image_b, border=0, relief=SUNKEN).place(x=200, y=145)
-    l3=Label(w, image=image_b, border=0, relief=SUNKEN).place(x=220, y=145)
-    l4=Label(w, image=image_a, border=0, relief=SUNKEN).place(x=240, y=145)
+    l1=Label(w, image=image_b, border=0, relief=SUNKEN).place(x=177, y=155)
+    l2=Label(w, image=image_b, border=0, relief=SUNKEN).place(x=197, y=155)
+    l3=Label(w, image=image_b, border=0, relief=SUNKEN).place(x=217, y=155)
+    l4=Label(w, image=image_a, border=0, relief=SUNKEN).place(x=237, y=155)
     w.update_idletasks()
     time.sleep(0.5)
 
