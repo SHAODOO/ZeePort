@@ -267,30 +267,30 @@ L11.place(x=16, y=10)
 L21 = Label(gui, text="Target: ", font=("Cascadia Code", 12))
 L21.place(x=16, y=90)
 
-L22 = Entry(gui, text="localhost", font=("Times New Roman", 12))
+L22 = Entry(gui, text="localhost", font=("Cascadia Code", 12))
 L22.place(x=180, y=95)
 L22.insert(0, "localhost")
 
 L23 = Label(gui, text="Ports: ", font=("Cascadia Code", 12))
 L23.place(x=16, y=158)
 
-L24 = Entry(gui, text="1", font=("Times New Roman", 12))
+L24 = Entry(gui, text="1", font=("Cascadia Code", 12))
 L24.place(x=180, y=163, width=95)
 L24.insert(0, "1")
 
-L25 = Entry(gui, text="1024", font=("Times New Roman", 12))
+L25 = Entry(gui, text="1024", font=("Cascadia Code", 12))
 L25.place(x=290, y=163, width=95)
 L25.insert(0, "1024")
 
 L26 = Label(gui, text="Results: ", font=("Cascadia Code", 12))
 L26.place(x=16, y=220)
-L27 = Label(gui, text="[ ... ]", font=("Times New Roman", 12))
+L27 = Label(gui, text="[ ... ]", font=("Cascadia Code", 12))
 L27.place(x=180, y=222)
 
-L28 = Label(gui, text="", font=("Times New Roman", 12))
+L28 = Label(gui, text="", font=("Cascadia Code", 12))
 L28.place(x=16, y=465)
 
-L29 =Label(gui, text="", font=("Times New Roman", 12))
+L29 =Label(gui, text="", font=("Cascadia Code", 12))
 L29.place(x=16, y=490)
 
 # ==== Ports list ====
@@ -305,9 +305,9 @@ listbox.config(yscrollcommand=scrollbar.set)
 scrollbar.config(command=listbox.yview)
 
 # ==== Buttons / Scans ====
-B11 = Button(gui, text="Start Scan", command=startScan)
+B11 = Button(gui, text="Start Scan", font=("Cascadia Code", 12), command=startScan)
 B11.place(x=16, y=540, width=170)
-B21 = Button(gui, text="Save Result", command=saveScan)
+B21 = Button(gui, text="Save Result", font=("Cascadia Code", 12), command=saveScan)
 B21.place(x=210, y=540, width=170)
 
 # ==== Start GUI ====
