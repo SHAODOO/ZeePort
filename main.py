@@ -243,7 +243,6 @@ def clearScan():
 
 
 # ==== GUI Splash Screen ====
-# Using piece of code from old splash screen
 width_of_window = 427
 height_of_window = 250
 screen_width = w.winfo_screenwidth()
@@ -255,11 +254,11 @@ w.geometry("%dx%d+%d+%d" %(width_of_window,height_of_window,x_coordinate,y_coord
 w.overrideredirect(1) #for hiding titlebar
 
 Frame(w, width=427, height=250, bg='#203749').place(x=0,y=0)
-label1=Label(w, text='ZEEPORT', fg='white', bg='#203749') #decorate it
-label1.configure(font=("Algerian", 24, "bold"))   #You need to install this font in your PC or try another one
+label1=Label(w, text='ZEEPORT', fg='white', bg='#203749')
+label1.configure(font=("Algerian", 24, "bold"))
 label1.place(x=137,y=100)
 
-label2=Label(w, text='Loading...', fg='white', bg='#203749') #decorate it
+label2=Label(w, text='Loading...', fg='white', bg='#203749')
 label2.configure(font=("Cascadia Code", 11))
 label2.place(x=10,y=215)
 
@@ -301,10 +300,7 @@ for i in range(3): #3loops
     w.update_idletasks()
     time.sleep(0.5)
 
-
-
 w.destroy()
-#new_win()
 w.mainloop()
 
 
@@ -325,7 +321,7 @@ win.tk_setPalette(background=bgc, foreground=m1c, activeBackground=fgc, activeFo
 LH = Frame(win)
 getCurrentWifiInfo()
 LH.pack(fill='both',expand=1)
-H1 = Label(LH, text="ZeePort", font=("Algerian", 20)) #'underline'
+H1 = Label(LH, text="ZeePort", font=("Algerian", 20))
 H1.place(x=16, y=10)
 H11 = Label(LH, text="Device's Host Name             : "+mycomputer_hostname, font=("Cascadia Code", 12))
 H11.place(x=16, y=80)
@@ -365,7 +361,7 @@ SP = Frame(win)
 
 
 # ==== Labels ====
-L11 = Label(SP, text="ZeePort", font=("Algerian", 20)) #'underline'
+L11 = Label(SP, text="ZeePort", font=("Algerian", 20))
 L11.place(x=16, y=10)
 
 L21 = Label(SP, text="Target: ", font=("Cascadia Code", 12))
@@ -398,7 +394,7 @@ L29.place(x=16, y=490)
 
 # ==== Ports list ====
 frame = Frame(SP)
-frame.place(x=16, y=275, width=450, height=180)
+frame.place(x=16, y=275, width=550, height=180)
 listbox = Listbox(frame, width=450, height=11)
 listbox.place(x=0, y=0)
 listbox.bind('<<ListboxSelect>>')
