@@ -38,13 +38,13 @@ def getCurrentWifiInfo():
                     wifi_ssid = SSID[0]
 
     mycomputer_hostname = socket.gethostname()
-    wifi_ip_address = socket.gethostbyname(mycomputer_hostname)
+    wifi_ip_address = str(socket.gethostbyname_ex(socket.gethostname())[2][3])
     if wifi_ip_address == "127.0.0.1":
 	    wifi_ip_address = "-"
 
 # ==== Scan Live Host ====
 def ScanLiveHost():
-
+    count=0
     livehost_list.delete(0,END)
 
     target_ip=wifi_ip_address+"/24"
@@ -58,7 +58,9 @@ def ScanLiveHost():
     if wifi_ip_address != "-" :
         for sent, received in livehost_result:
             livehost_list.insert(1,received.psrc)
+            count+=1
             H4.configure(text="The Live Host Scanning Result for "+wifi_ssid+" Connection : ")
+            H5.configure(text="There are "+str(count)+" live host(s) found in the network")
     else:
         livehost_list.insert(2,"No live host found.")
         H4.configure(text="The Live Host Scanning Result Without Connection : ")
@@ -83,6 +85,11 @@ def LHNext():
     LH.pack_forget()
     L22.delete(0,END)
     L22.insert(0, select_ip)
+    startScan()
+    updateResult()
+    tar=socket.gethostbyname(str(L22.get()))
+    mac=getMacAddress(tar)
+    L29.configure(text="MAC Address: "+str(mac))
 
 def back():
     LH.pack(fill='both',expand=1)
@@ -130,6 +137,7 @@ def service(port):
         return 'POP2'
     elif port == 110:
         return 'POP3'
+
     elif port == 135:
         return 'LOC-SRV'
     elif port == 139:
@@ -329,13 +337,14 @@ H2 = Label(LH, text="Current Connected Internet     : "+wifi_ssid, font=("Cascad
 H2.place(x=16, y=110)
 H3 = Label(LH, text="My IP Address in the Internet  : "+wifi_ip_address, font=("Cascadia Code", 12))
 H3.place(x=16, y=140)
+H5 = Label(LH, text="", font=("Cascadia Code", 12))
+H5.place(x=16, y=600)
 
-
-HB1 = Button(LH, text="Scan For Live Host", command=ScanLiveHost)
+HB1 = Button(LH, text="Scan For Live Host", font=("Cascadia Code", 10), command=ScanLiveHost)
 HB1.place(x=550, y=170, width=170)
-HB2 = Button(LH, text="Refresh", command=LHRefresh)
+HB2 = Button(LH, text="Refresh", font=("Cascadia Code", 10), command=LHRefresh)
 HB2.place(x=550, y=210, width=170)
-HB3 = Button(LH, text="Next", command=LHNext)
+HB3 = Button(LH, text="Next", font=("Cascadia Code", 10), command=LHNext)
 HB3.place(x=550, y=600, width=170)
 
 
@@ -404,11 +413,11 @@ listbox.config(yscrollcommand=scrollbar.set)
 scrollbar.config(command=listbox.yview)
 
 # ==== Buttons / Scans ====
-B11 = Button(SP, text="Start Scan", command=startScan)
+B11 = Button(SP, text="Start Scan", font=("Cascadia Code", 10) ,command=startScan)
 B11.place(x=16, y=540, width=170)
-B21 = Button(SP, text="Save Result", command=saveScan)
+B21 = Button(SP, text="Save Result", font=("Cascadia Code", 10), command=saveScan)
 B21.place(x=210, y=540, width=170)
-BB = Button(SP, text="Back", command=back)
+BB = Button(SP, text="Back", font=("Cascadia Code", 10), command=back)
 BB.place(x=16, y=600, width=170)
 # ==== Start GUI ====
 win.mainloop()
